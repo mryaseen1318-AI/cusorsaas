@@ -1,0 +1,25 @@
+[build]
+  base = "frontend"  # The base directory for the frontend
+  publish = "frontend/.next"  # The build output directory for Next.js
+  command = "cd frontend && npm install && npm run build"
+
+[dev]
+  command = "cd frontend && npm run dev"
+  port = 3000
+  targetPort = 3000
+  publish = "frontend/.next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_VERSION = "10"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Environment variables for different contexts
+[context.production]
+  command = "cd frontend && npm install && npm run build"
+
+[context.deploy-preview]
+  command = "cd frontend && npm install && npm run build"
+
+[context.branch-deploy]
+  command = "cd frontend && npm install && npm run build"
