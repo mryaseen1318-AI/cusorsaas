@@ -1,10 +1,10 @@
 [build]
-  base = "frontend"  # The base directory for the frontend
-  publish = "frontend/.next"  # The build output directory for Next.js
   command = "cd frontend && npm install && npm run build"
+  publish = "frontend/.next"
+  functions = "netlify/functions"
 
 [dev]
-  command = "cd frontend && npm run dev"
+  command = "npm run dev"
   port = 3000
   targetPort = 3000
   publish = "frontend/.next"
@@ -14,12 +14,14 @@
   NPM_VERSION = "10"
   NEXT_TELEMETRY_DISABLED = "1"
 
-# Environment variables for different contexts
-[context.production]
-  command = "cd frontend && npm install && npm run build"
+# Production context
+[context.production.environment]
+  NODE_ENV = "production"
 
-[context.deploy-preview]
-  command = "cd frontend && npm install && npm run build"
+# Deploy preview context
+[context.deploy-preview.environment]
+  NODE_ENV = "development"
 
-[context.branch-deploy]
-  command = "cd frontend && npm install && npm run build"
+# Branch deploy context
+[context.branch-deploy.environment]
+  NODE_ENV = "development"
